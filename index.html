@@ -1,0 +1,1516 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Executivo — Colaboradores</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bgOverlay: rgba(17, 24, 39, 0.58);
+        --surface: rgba(255, 255, 255, 0.97);
+        --surface2: #f6f7ff;
+        --line: #e7e9ff;
+        --text: #111827;
+        --muted: #6b7280;
+        --primary: #667eea;
+
+        --ok: #22c55e;
+        --warn: #f59e0b;
+        --danger: #ef4444;
+        --info: #3b82f6;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        padding: 18px;
+        background: url("planoF.jpg") center/cover no-repeat fixed;
+        position: relative;
+        color: var(--text);
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: var(--bgOverlay);
+        backdrop-filter: blur(3px);
+        z-index: -2;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: url("LOGO_URL_AQUI") center/420px auto no-repeat;
+        opacity: 0.07;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .container {
+        max-width: 1720px;
+        margin: 0 auto;
+        background: var(--surface);
+        border-radius: 18px;
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+      }
+
+      .header {
+        background: linear-gradient(
+          135deg,
+          rgba(102, 126, 234, 0.98) 0%,
+          rgba(118, 75, 162, 0.98) 100%
+        );
+        color: #fff;
+        padding: 18px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .brand-logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        object-fit: contain;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.26);
+        padding: 7px;
+      }
+      .brand-text h1 {
+        font-size: 1.35em;
+        letter-spacing: 0.2px;
+        font-weight: 950;
+      }
+      .brand-text p {
+        opacity: 0.92;
+        margin-top: 6px;
+        font-weight: 700;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .clock {
+        background: rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        padding: 10px 12px;
+        border-radius: 12px;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 150px;
+        justify-content: center;
+      }
+
+      .btn {
+        padding: 10px 14px;
+        border: none;
+        border-radius: 12px;
+        font-size: 0.95em;
+        font-weight: 950;
+        cursor: pointer;
+        transition: 0.18s;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        line-height: 1;
+        user-select: none;
+        white-space: nowrap;
+      }
+      .btn-white {
+        background: #fff;
+        color: #4c5bdc;
+        border: 1px solid rgba(255, 255, 255, 0.65);
+      }
+      .btn-white:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+      }
+
+      .content {
+        padding: 16px 16px 22px 16px;
+      }
+
+      .topbar {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .pill {
+        background: var(--surface2);
+        color: #2f2f2f;
+        border: 2px solid var(--line);
+        padding: 10px 12px;
+        border-radius: 12px;
+        font-weight: 950;
+        font-size: 0.93em;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .pill strong {
+        color: var(--text);
+      }
+
+      .sector-menu {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 0 12px 0;
+        padding: 10px;
+        background: rgba(246, 247, 255, 0.65);
+        border: 2px solid var(--line);
+        border-radius: 14px;
+      }
+
+      .btn-sector {
+        background: #fff;
+        color: var(--text);
+        border: 2px solid var(--line);
+        padding: 10px 12px;
+      }
+      .btn-sector:hover {
+        border-color: rgba(102, 126, 234, 0.65);
+        box-shadow: 0 10px 22px rgba(102, 126, 234, 0.12);
+        transform: translateY(-1px);
+      }
+      .btn-sector.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: #fff;
+      }
+
+      .btn-sector.auto {
+        background: #111827;
+        border-color: #111827;
+        color: #fff;
+      }
+      .btn-sector.auto.active {
+        background: #0b1220;
+        border-color: #0b1220;
+      }
+
+      .btn-sector.bday {
+        background: #fff7ed;
+        border-color: #fed7aa;
+        color: #7c2d12;
+      }
+      .btn-sector.bday.active {
+        background: #fb923c;
+        border-color: #fb923c;
+        color: #111827;
+      }
+
+      .legend {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+      }
+      .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 950;
+        font-size: 0.92em;
+        color: var(--text);
+        background: var(--surface2);
+        border: 2px solid var(--line);
+        padding: 10px 12px;
+        border-radius: 12px;
+      }
+      .legend-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        display: inline-block;
+        border: 2px solid #fff;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+      }
+      .dot-ativo {
+        background: var(--ok);
+      }
+      .dot-ausente {
+        background: var(--warn);
+      }
+      .dot-atestado {
+        background: var(--danger);
+      }
+      .dot-ferias {
+        background: var(--info);
+      }
+
+      .filters {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin: 6px 0 14px 0;
+        padding: 12px;
+        background: rgba(246, 247, 255, 0.6);
+        border: 2px solid var(--line);
+        border-radius: 14px;
+      }
+      .filters-left {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .filters-right {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .input {
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 2px solid var(--line);
+        background: #fff;
+        font-weight: 900;
+        color: var(--text);
+        min-width: 240px;
+        outline: none;
+      }
+      .input:focus {
+        border-color: rgba(102, 126, 234, 0.65);
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.12);
+      }
+
+      .select {
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 2px solid var(--line);
+        background: #fff;
+        font-weight: 950;
+        color: var(--text);
+        outline: none;
+        min-width: 220px;
+      }
+      .select:focus {
+        border-color: rgba(102, 126, 234, 0.65);
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.12);
+      }
+
+      .hint {
+        font-weight: 900;
+        color: var(--muted);
+      }
+
+      .loading {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--primary);
+        font-size: 1.1em;
+      }
+      .loading i {
+        font-size: 2.4em;
+        display: block;
+        margin-bottom: 14px;
+      }
+
+      .fade {
+        animation: fadeIn 0.35s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0.25;
+          transform: translateY(3px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .panel {
+        border: 2px solid #ececec;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .panel-header {
+        background: var(--surface2);
+        border-bottom: 2px solid var(--line);
+        padding: 16px 14px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .panel-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .panel-left h2 {
+        font-size: 1.25em;
+        color: #2f2f2f;
+        font-weight: 950;
+      }
+
+      .panel-right {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+      }
+      .badge {
+        background: var(--primary);
+        color: #fff;
+        font-weight: 950;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 0.95em;
+      }
+      .badge.gray {
+        background: #6c757d;
+      }
+      .badge.soft {
+        background: #111827;
+      }
+      .badge.orange {
+        background: #fb923c;
+        color: #111827;
+      }
+
+      .section {
+        padding: 16px;
+        border-top: 1px solid #f0f0f0;
+      }
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .section-header h3 {
+        font-size: 1.05em;
+        color: #111827;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 950;
+      }
+      .section-count {
+        background: #111827;
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 950;
+        font-size: 0.95em;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        background: #fff;
+        border: 2px solid #ececec;
+        border-radius: 16px;
+        padding: 18px 16px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        transition: 0.18s;
+        position: relative;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(102, 126, 234, 0.14);
+        border-color: rgba(102, 126, 234, 0.55);
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 10px;
+        border-radius: 16px 0 0 16px;
+        background: var(--ok);
+      }
+      .card.status-ausente::before {
+        background: var(--warn);
+      }
+      .card.status-atestado::before {
+        background: var(--danger);
+      }
+      .card.status-ferias::before {
+        background: var(--info);
+      }
+
+      .card-photo {
+        width: 132px;
+        height: 132px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto 12px auto;
+        border: 6px solid rgba(102, 126, 234, 0.95);
+        background: #fff;
+      }
+
+      .card-name {
+        text-align: center;
+        font-weight: 950;
+        font-size: 1.22em;
+        color: var(--text);
+        letter-spacing: 0.2px;
+        margin-bottom: 6px;
+      }
+      .card-func {
+        text-align: center;
+        color: var(--muted);
+        font-weight: 850;
+        font-size: 1.02em;
+        margin-bottom: 12px;
+      }
+
+      .card-meta {
+        margin-top: 8px;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .tag {
+        background: var(--surface2);
+        border: 2px solid var(--line);
+        color: var(--text);
+        font-weight: 950;
+        padding: 7px 10px;
+        border-radius: 999px;
+        font-size: 0.9em;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .tag.atestado {
+        background: #fee2e2;
+        border-color: #fecaca;
+        color: #7f1d1d;
+      }
+      .tag.ausente {
+        background: #fef3c7;
+        border-color: #fde68a;
+        color: #7c2d12;
+      }
+      .tag.ferias {
+        background: #dbeafe;
+        border-color: #bfdbfe;
+        color: #1e3a8a;
+      }
+
+      .empty {
+        padding: 16px;
+        border: 2px dashed #ddd;
+        border-radius: 12px;
+        color: #6b7280;
+        text-align: center;
+        background: #fafafa;
+        font-weight: 850;
+      }
+
+      @media (max-width: 900px) {
+        .cards-grid {
+          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        }
+        .card-photo {
+          width: 120px;
+          height: 120px;
+        }
+      }
+      @media (max-width: 768px) {
+        body {
+          padding: 12px;
+        }
+        .content {
+          padding: 14px;
+        }
+        .cards-grid {
+          grid-template-columns: 1fr;
+        }
+        .clock {
+          width: 100%;
+        }
+        .brand-logo {
+          width: 46px;
+          height: 46px;
+        }
+        .sector-menu {
+          justify-content: flex-start;
+        }
+        .filters {
+          justify-content: flex-start;
+        }
+        .input {
+          min-width: 100%;
+        }
+        .select {
+          min-width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="brand">
+          <img
+            class="brand-logo"
+            src="log.png"
+            alt="Logo"
+            onerror="this.style.display = 'none'"
+          />
+          <div class="brand-text">
+            <h1>Painel Executivo — Colaboradores</h1>
+            <p>
+              Filtros por função e nome • Aniversariantes do mês • Passagem
+              opcional
+            </p>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="clock">
+            <i class="fas fa-clock"></i>
+            <span id="clockTime">--:--:--</span>
+          </div>
+
+          <button
+            class="btn btn-white"
+            type="button"
+            onclick="toggleFullscreen()"
+          >
+            <i class="fas fa-expand"></i> Tela cheia
+          </button>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="sector-menu">
+          <button class="btn btn-sector" data-setor="Administração">
+            <i class="fas fa-user-tie"></i> Administração
+          </button>
+          <button class="btn btn-sector" data-setor="Área de Lazer">
+            <i class="fas fa-swimming-pool"></i> Área de Lazer
+          </button>
+          <button class="btn btn-sector" data-setor="Segurança">
+            <i class="fas fa-shield-halved"></i> Segurança
+          </button>
+          <button class="btn btn-sector" data-setor="Financeiro">
+            <i class="fas fa-dollar-sign"></i> Financeiro
+          </button>
+          <button class="btn btn-sector" data-setor="Tecnologia">
+            <i class="fas fa-laptop"></i> Tecnologia
+          </button>
+          <button class="btn btn-sector" data-setor="Manutenção">
+            <i class="fas fa-tools"></i> Manutenção
+          </button>
+          <button class="btn btn-sector" data-setor="Áreas Verdes">
+            <i class="fas fa-leaf"></i> Áreas Verdes
+          </button>
+          <button class="btn btn-sector" data-setor="Setor Técnico">
+            <i class="fas fa-cogs"></i> Setor Técnico
+          </button>
+
+          <button class="btn btn-sector auto" id="autoModeBtn">
+            <i class="fas fa-play"></i> Passagem de Painéis
+          </button>
+
+          <!-- ✅ NOVO: Aniversariantes do mês -->
+          <button class="btn btn-sector bday" id="bdayBtn">
+            <i class="fas fa-cake-candles"></i> Aniversariantes do mês
+          </button>
+        </div>
+
+        <div class="topbar">
+          <div class="pill">
+            <i class="fas fa-building"></i> Visão:
+            <strong id="selectedSector">Selecione acima</strong>
+          </div>
+
+          <div class="pill">
+            <i class="fas fa-users"></i> Total:
+            <strong id="totalLabel">--</strong>
+          </div>
+
+          <div class="pill" id="autoModeStatus" style="display: none">
+            <i class="fas fa-rotate"></i> Passagem:
+            <strong id="autoModeLabel">Ativa</strong>
+          </div>
+
+          <div class="legend">
+            <div class="legend-item">
+              <span class="legend-dot dot-ativo"></span> Ativo
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot dot-ausente"></span> Ausente
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot dot-atestado"></span> Atestado
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot dot-ferias"></span> Férias
+            </div>
+          </div>
+        </div>
+
+        <!-- ✅ Filtros (mudam conforme a aba: setores x aniversariantes) -->
+        <div class="filters">
+          <div class="filters-left">
+            <input
+              id="searchInput"
+              class="input"
+              type="text"
+              placeholder="Buscar por nome ou função..."
+            />
+            <select id="roleFilter" class="select">
+              <option value="">Filtrar por função (todas)</option>
+            </select>
+          </div>
+
+          <div class="filters-right">
+            <span class="hint" id="filterHint"
+              ><i class="fas fa-filter"></i> Use os filtros para refinar a
+              visualização</span
+            >
+          </div>
+        </div>
+
+        <div id="status" class="loading">
+          <i class="fas fa-circle-notch fa-spin"></i>
+          Carregando colaboradores...
+        </div>
+
+        <div id="tvContainer" style="display: none"></div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        onSnapshot,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+      // ✅ COLE AQUI O MESMO firebaseConfig DO SEU ADMIN
+      const firebaseConfig = {
+        apiKey: "AIzaSyDaDaastWQnbb2rluuftaK0KUa4wkLS6O0",
+        authDomain: "colaboradores-arn.firebaseapp.com",
+        projectId: "colaboradores-arn",
+        storageBucket: "colaboradores-arn.firebasestorage.app",
+        messagingSenderId: "21928151287",
+        appId: "1:21928151287:web:e47c84d410bb72c1c86bf2",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      const SETORES_ORDEM = [
+        "Administração",
+        "Área de Lazer",
+        "Segurança",
+        "Financeiro",
+        "Tecnologia",
+        "Manutenção",
+        "Áreas Verdes",
+        "Setor Técnico",
+      ];
+
+      // ✅ Segurança: coordenação + plantões
+      const PLANTOES_SEGURANCA = [
+        "Coordenação",
+        "Alfa",
+        "Bravo",
+        "Charlie",
+        "Delta",
+        "5x2",
+      ];
+
+      // ✅ Tempo do modo “Passagem” (só roda quando ativado)
+      const AUTO_ROTATION_SECONDS = 12;
+
+      // ✅ Estado
+      let currentView = null; // "setor" | "bday"
+      let currentSetor = null;
+      let lastColabs = [];
+
+      let autoMode = false;
+      let autoTimer = null;
+      let autoIndex = 0;
+
+      // ✅ Filtros
+      let filterSearch = "";
+      let filterRole = "";
+
+      function escapeHtml(value) {
+        const s = (value ?? "").toString();
+        return s.replace(
+          /[&<>"']/g,
+          (ch) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#039;",
+            })[ch],
+        );
+      }
+
+      function normalizeText(s = "") {
+        return s
+          .toString()
+          .normalize("NFD")
+          .replace(/\p{Diacritic}/gu, "")
+          .trim()
+          .toLowerCase();
+      }
+
+      function parseDateSafe(v) {
+        if (!v) return null;
+        if (typeof v === "string") {
+          const d = new Date(v + "T00:00:00");
+          return Number.isNaN(d.getTime()) ? null : d;
+        }
+        if (v && typeof v.toDate === "function") return v.toDate();
+        return null;
+      }
+
+      function getStatusNow(colab) {
+        const hoje = new Date();
+        const ausencias = Array.isArray(colab.ausencias) ? colab.ausencias : [];
+
+        for (const a of ausencias) {
+          const ini = parseDateSafe(a.dataInicio);
+          const fim = parseDateSafe(a.dataFim);
+          if (!ini || !fim) continue;
+
+          const ini0 = new Date(
+            ini.getFullYear(),
+            ini.getMonth(),
+            ini.getDate(),
+          );
+          const fim0 = new Date(
+            fim.getFullYear(),
+            fim.getMonth(),
+            fim.getDate(),
+            23,
+            59,
+            59,
+          );
+
+          if (hoje >= ini0 && hoje <= fim0) {
+            const tipo = (a.tipo || "").toString().toLowerCase();
+            if (tipo === "atestado")
+              return {
+                key: "atestado",
+                tag: {
+                  cls: "atestado",
+                  label: "ATESTADO",
+                  icon: "fa-triangle-exclamation",
+                },
+              };
+            if (tipo === "ferias" || tipo === "férias")
+              return {
+                key: "ferias",
+                tag: {
+                  cls: "ferias",
+                  label: "FÉRIAS",
+                  icon: "fa-umbrella-beach",
+                },
+              };
+            return {
+              key: "ausente",
+              tag: {
+                cls: "ausente",
+                label: tipo.toUpperCase() || "AUSENTE",
+                icon: "fa-user-clock",
+              },
+            };
+          }
+        }
+        return { key: "ativo", tag: null };
+      }
+
+      // ========= Fluxo/Hierarquia =========
+
+      // Segurança: Encarregado -> Vigia -> Portaria -> Mensageiro -> Outros
+      function roleBucketSeguranca(funcaoRaw) {
+        const f = normalizeText(funcaoRaw);
+
+        if (f.includes("encarregado")) return "encarregado";
+
+        if (
+          f === "vigia" ||
+          f.includes("vigia") ||
+          f.includes("cftv") ||
+          f.includes("monitoramento") ||
+          f.includes("camera")
+        )
+          return "vigia";
+
+        if (
+          f.includes("porteiro") ||
+          f.includes("portaria") ||
+          f.includes("atendente de portaria") ||
+          f.includes("atendente portaria")
+        )
+          return "portaria";
+
+        if (f.includes("mensageiro")) return "mensageiro";
+
+        return "outros";
+      }
+
+      const SEG_ROLE_ORDER = [
+        "encarregado",
+        "vigia",
+        "portaria",
+        "mensageiro",
+        "outros",
+      ];
+      const SEG_ROLE_LABEL = {
+        encarregado: "Encarregado",
+        vigia: "Vigias",
+        portaria: "Atendente Portaria",
+        mensageiro: "Mensageiros",
+        outros: "Outras Funções",
+      };
+      const SEG_ROLE_ICON = {
+        encarregado: "fa-user-tie",
+        vigia: "fa-shield-halved",
+        portaria: "fa-door-closed",
+        mensageiro: "fa-envelope",
+        outros: "fa-layer-group",
+      };
+
+      // Outros setores: Liderança primeiro (Gerente/Coordenador), depois efetivo
+      function isLiderancaNaoSeguranca(funcaoRaw) {
+        const f = normalizeText(funcaoRaw);
+        return f.includes("gerente") || f.includes("coordenador");
+      }
+
+      // ========= Render =========
+
+      function renderCard(colab) {
+        const foto =
+          colab.foto ||
+          colab.fotoUrl ||
+          "https://via.placeholder.com/300?text=Sem+Foto";
+        const nome = colab.nome || "";
+        const func = colab.funcao || "";
+        const plantao = colab.plantao || "--";
+        const periodo = colab.periodo || "--";
+
+        const st = getStatusNow(colab);
+        const periodIcon = periodo === "Noturno" ? "fa-moon" : "fa-sun";
+
+        let metaTags = `<span class="tag"><i class="fas fa-user-tie"></i> ${escapeHtml(func)}</span>`;
+
+        if (currentView === "setor" && currentSetor === "Segurança") {
+          metaTags += `
+            <span class="tag"><i class="fas fa-clock"></i> ${escapeHtml(plantao)}</span>
+            <span class="tag"><i class="fas ${escapeHtml(periodIcon)}"></i> ${escapeHtml(periodo)}</span>
+          `;
+        }
+
+        if (st.tag) {
+          metaTags += `<span class="tag ${escapeHtml(st.tag.cls)}"><i class="fas ${escapeHtml(st.tag.icon)}"></i> ${escapeHtml(st.tag.label)}</span>`;
+        }
+
+        return `
+          <div class="card status-${escapeHtml(st.key)}">
+            <img class="card-photo" src="${escapeHtml(foto)}" alt="${escapeHtml(nome)}"
+              onerror="this.src='https://via.placeholder.com/300?text=Sem+Foto'">
+            <div class="card-name">${escapeHtml(nome)}</div>
+            <div class="card-func">${escapeHtml(func)}</div>
+            <div class="card-meta">${metaTags}</div>
+          </div>
+        `;
+      }
+
+      function renderSection(title, icon, list) {
+        if (!list.length) return "";
+        const sortNome = (a, b) =>
+          (a.nome || "").localeCompare(b.nome || "", "pt-BR", {
+            sensitivity: "base",
+          });
+        const ordered = [...list].sort(sortNome);
+
+        const cards = `<div class="cards-grid">${ordered.map(renderCard).join("")}</div>`;
+        return `
+          <div class="section">
+            <div class="section-header">
+              <h3><i class="fas ${escapeHtml(icon)}"></i> ${escapeHtml(title)}</h3>
+              <div class="section-count">${ordered.length}</div>
+            </div>
+            ${cards}
+          </div>
+        `;
+      }
+
+      // ========= Filtros (aplicação) =========
+
+      function matchSearch(colab) {
+        if (!filterSearch) return true;
+        const hay = normalizeText(`${colab.nome || ""} ${colab.funcao || ""}`);
+        return hay.includes(filterSearch);
+      }
+
+      function matchRole(colab) {
+        if (!filterRole) return true;
+
+        // Se estiver na Segurança e o dropdown estiver com “Encarregado/Vigia/Portaria/Mensageiro/Outros”
+        if (currentView === "setor" && currentSetor === "Segurança") {
+          const bucket = roleBucketSeguranca(colab.funcao);
+          return bucket === filterRole;
+        }
+
+        // Demais visões: filtra por função exata (texto)
+        return (colab.funcao || "") === filterRole;
+      }
+
+      function applyFilters(list) {
+        return list.filter((c) => matchSearch(c) && matchRole(c));
+      }
+
+      function rebuildRoleFilterOptions(listContexto) {
+        const roleSelect = document.getElementById("roleFilter");
+
+        // Segurança: opções “por buckets”
+        if (currentView === "setor" && currentSetor === "Segurança") {
+          roleSelect.innerHTML =
+            `<option value="">Filtrar por função (todas)</option>` +
+            SEG_ROLE_ORDER.map(
+              (k) => `<option value="${k}">${SEG_ROLE_LABEL[k]}</option>`,
+            ).join("");
+          return;
+        }
+
+        // Aniversariantes: usa funções existentes naquele recorte
+        // Outros setores: usa funções existentes naquele setor
+        const funcoes = [
+          ...new Set(listContexto.map((c) => c.funcao).filter(Boolean)),
+        ].sort((a, b) => a.localeCompare(b, "pt-BR", { sensitivity: "base" }));
+        roleSelect.innerHTML =
+          `<option value="">Filtrar por função (todas)</option>` +
+          funcoes
+            .map(
+              (f) =>
+                `<option value="${escapeHtml(f)}">${escapeHtml(f)}</option>`,
+            )
+            .join("");
+      }
+
+      // ========= Render de Segurança (por plantão e por função) =========
+
+      function renderSegurancaByPlantao(listSeg) {
+        let html = "";
+
+        // agrupa por plantão
+        const byPlantao = {};
+        PLANTOES_SEGURANCA.forEach((p) => (byPlantao[p] = []));
+        byPlantao["Sem Plantão"] = [];
+
+        listSeg.forEach((colab) => {
+          const p = (colab.plantao || "").toString().trim();
+          if (PLANTOES_SEGURANCA.includes(p)) byPlantao[p].push(colab);
+          else byPlantao["Sem Plantão"].push(colab);
+        });
+
+        // Para cada plantão: Encarregado -> Vigia -> Portaria -> Mensageiro -> Outros
+        PLANTOES_SEGURANCA.forEach((plantao) => {
+          const groupRaw = byPlantao[plantao] || [];
+          const group = applyFilters(groupRaw);
+          if (!group.length) return;
+
+          const roleGroups = {};
+          SEG_ROLE_ORDER.forEach((r) => (roleGroups[r] = []));
+          group.forEach((c) =>
+            roleGroups[roleBucketSeguranca(c.funcao)].push(c),
+          );
+
+          let inner = "";
+          SEG_ROLE_ORDER.forEach((roleKey) => {
+            const items = roleGroups[roleKey] || [];
+            if (!items.length) return;
+            inner += renderSection(
+              SEG_ROLE_LABEL[roleKey],
+              SEG_ROLE_ICON[roleKey],
+              items,
+            );
+          });
+
+          html += `
+            <div class="section">
+              <div class="section-header">
+                <h3><i class="fas fa-clock"></i> Plantão ${escapeHtml(plantao)}</h3>
+                <div class="section-count">${group.length}</div>
+              </div>
+            </div>
+            ${inner}
+          `;
+        });
+
+        // Sem plantão
+        const semPlantao = applyFilters(byPlantao["Sem Plantão"]);
+        if (semPlantao.length) {
+          html += renderSection(
+            "Sem Plantão Definido",
+            "fa-circle-question",
+            semPlantao,
+          );
+        }
+
+        return (
+          html ||
+          `<div class="empty">Sem resultados para os filtros aplicados.</div>`
+        );
+      }
+
+      // ========= Render outros setores =========
+
+      function renderNaoSeguranca(listSetor) {
+        const filtered = applyFilters(listSetor);
+
+        const lideranca = filtered.filter((c) =>
+          isLiderancaNaoSeguranca(c.funcao),
+        );
+        const efetivo = filtered.filter(
+          (c) => !isLiderancaNaoSeguranca(c.funcao),
+        );
+
+        let html = "";
+        html += renderSection(
+          "Gerência / Coordenação",
+          "fa-user-gear",
+          lideranca,
+        );
+        html += renderSection("Efetivo", "fa-users", efetivo);
+
+        return (
+          html ||
+          `<div class="empty">Sem resultados para os filtros aplicados.</div>`
+        );
+      }
+
+      // ========= Render aniversariantes =========
+
+      function isBirthdayInMonth(colab, monthIndex) {
+        // aniversario esperado: "YYYY-MM-DD"
+        const d = parseDateSafe(colab.aniversario);
+        if (!d) return false;
+        return d.getMonth() === monthIndex;
+      }
+
+      function formatBirthday(colab) {
+        const d = parseDateSafe(colab.aniversario);
+        if (!d) return "--";
+        const dd = String(d.getDate()).padStart(2, "0");
+        const mm = String(d.getMonth() + 1).padStart(2, "0");
+        return `${dd}/${mm}`;
+      }
+
+      function renderBirthdayCard(colab) {
+        // reaproveita card normal, mas adiciona tag data e setor
+        const foto =
+          colab.foto ||
+          colab.fotoUrl ||
+          "https://via.placeholder.com/300?text=Sem+Foto";
+        const nome = colab.nome || "";
+        const func = colab.funcao || "";
+        const setor = colab.setor || "--";
+
+        const st = getStatusNow(colab);
+        const bday = formatBirthday(colab);
+
+        let metaTags = `
+          <span class="tag"><i class="fas fa-cake-candles"></i> ${escapeHtml(bday)}</span>
+          <span class="tag"><i class="fas fa-building"></i> ${escapeHtml(setor)}</span>
+          <span class="tag"><i class="fas fa-user-tie"></i> ${escapeHtml(func)}</span>
+        `;
+
+        if (st.tag) {
+          metaTags += `<span class="tag ${escapeHtml(st.tag.cls)}"><i class="fas ${escapeHtml(st.tag.icon)}"></i> ${escapeHtml(st.tag.label)}</span>`;
+        }
+
+        return `
+          <div class="card status-${escapeHtml(st.key)}">
+            <img class="card-photo" src="${escapeHtml(foto)}" alt="${escapeHtml(nome)}"
+              onerror="this.src='https://via.placeholder.com/300?text=Sem+Foto'">
+            <div class="card-name">${escapeHtml(nome)}</div>
+            <div class="card-func">${escapeHtml(func)}</div>
+            <div class="card-meta">${metaTags}</div>
+          </div>
+        `;
+      }
+
+      function renderBirthdays() {
+        const now = new Date();
+        const monthIndex = now.getMonth();
+
+        // contexto: todos aniversariantes do mês
+        const bdaysRaw = lastColabs.filter((c) =>
+          isBirthdayInMonth(c, monthIndex),
+        );
+
+        // filtros: busca e função (função exata, não bucket)
+        const list = bdaysRaw.filter((c) => {
+          if (filterSearch) {
+            const hay = normalizeText(
+              `${c.nome || ""} ${c.funcao || ""} ${c.setor || ""}`,
+            );
+            if (!hay.includes(filterSearch)) return false;
+          }
+          if (filterRole) {
+            return (c.funcao || "") === filterRole;
+          }
+          return true;
+        });
+
+        // ordena por dia do mês
+        list.sort((a, b) => {
+          const da = parseDateSafe(a.aniversario);
+          const db = parseDateSafe(b.aniversario);
+          const aa = da ? da.getDate() : 99;
+          const bb = db ? db.getDate() : 99;
+          return aa - bb;
+        });
+
+        const cards = list.map(renderBirthdayCard).join("");
+        const title = `Aniversariantes do mês (${String(monthIndex + 1).padStart(2, "0")})`;
+
+        return `
+          <div class="panel fade">
+            <div class="panel-header">
+              <div class="panel-left">
+                <i class="fas fa-cake-candles" style="color:#fb923c;"></i>
+                <h2>${escapeHtml(title)}</h2>
+              </div>
+              <div class="panel-right">
+                <div class="badge orange">Total: ${list.length}</div>
+                <div class="badge soft">Diretoria</div>
+                <div class="badge gray">TV</div>
+              </div>
+            </div>
+            <div class="panel-body">
+              ${
+                list.length
+                  ? `<div class="section"><div class="cards-grid">${cards}</div></div>`
+                  : `<div class="section"><div class="empty">Nenhum aniversariante encontrado com os filtros aplicados.</div></div>`
+              }
+            </div>
+          </div>
+        `;
+      }
+
+      // ========= Render principal =========
+
+      function renderTV() {
+        const tv = document.getElementById("tvContainer");
+        const status = document.getElementById("status");
+
+        if (!currentView) {
+          tv.innerHTML = `<div class="empty">Selecione um setor ou “Aniversariantes do mês”.</div>`;
+          status.style.display = "none";
+          tv.style.display = "block";
+          document.getElementById("selectedSector").textContent =
+            "Selecione acima";
+          document.getElementById("totalLabel").textContent = "--";
+          return;
+        }
+
+        if (currentView === "bday") {
+          document.getElementById("selectedSector").textContent =
+            "Aniversariantes do mês";
+          tv.innerHTML = renderBirthdays();
+          document.getElementById("status").style.display = "none";
+          document.getElementById("tvContainer").style.display = "block";
+          document.getElementById("totalLabel").textContent = "--";
+          return;
+        }
+
+        // view setor
+        const listSetorRaw = lastColabs.filter(
+          (c) => (c.setor || "").toString().trim() === currentSetor,
+        );
+
+        document.getElementById("selectedSector").textContent =
+          currentSetor || "--";
+        document.getElementById("totalLabel").textContent = String(
+          applyFilters(listSetorRaw).length,
+        );
+
+        if (!listSetorRaw.length) {
+          tv.innerHTML = `<div class="empty">Nenhum colaborador encontrado no setor "${escapeHtml(currentSetor)}".</div>`;
+          status.style.display = "none";
+          tv.style.display = "block";
+          return;
+        }
+
+        let content = "";
+        if (currentSetor === "Segurança")
+          content = renderSegurancaByPlantao(listSetorRaw);
+        else content = renderNaoSeguranca(listSetorRaw);
+
+        tv.innerHTML = `
+          <div class="panel fade">
+            <div class="panel-header">
+              <div class="panel-left">
+                <i class="fas fa-sitemap" style="color: var(--primary);"></i>
+                <h2>Setor ${escapeHtml(currentSetor)}</h2>
+              </div>
+              <div class="panel-right">
+                <div class="badge">Total: ${applyFilters(listSetorRaw).length}</div>
+                <div class="badge soft">Diretoria</div>
+                <div class="badge gray">TV</div>
+              </div>
+            </div>
+            <div class="panel-body">${content}</div>
+          </div>
+        `;
+
+        status.style.display = "none";
+        tv.style.display = "block";
+      }
+
+      // ========= UI / estados =========
+
+      function clearActiveButtons() {
+        document
+          .querySelectorAll(".btn-sector")
+          .forEach((b) => b.classList.remove("active"));
+        document.getElementById("autoModeBtn").classList.remove("active");
+        document.getElementById("bdayBtn").classList.remove("active");
+      }
+
+      function setActiveSectorButton(setor) {
+        document.querySelectorAll(".btn-sector[data-setor]").forEach((btn) => {
+          if (btn.dataset.setor === setor) btn.classList.add("active");
+        });
+      }
+
+      function stopAutoMode() {
+        autoMode = false;
+        if (autoTimer) {
+          clearInterval(autoTimer);
+          autoTimer = null;
+        }
+        document.getElementById("autoModeBtn").classList.remove("active");
+        document.getElementById("autoModeBtn").innerHTML =
+          `<i class="fas fa-play"></i> Passagem de Painéis`;
+        document.getElementById("autoModeStatus").style.display = "none";
+      }
+
+      function startAutoMode() {
+        autoMode = true;
+        currentView = "setor";
+
+        document.getElementById("autoModeBtn").classList.add("active");
+        document.getElementById("autoModeBtn").innerHTML =
+          `<i class="fas fa-pause"></i> Parar Passagem`;
+        document.getElementById("autoModeStatus").style.display = "inline-flex";
+        document.getElementById("autoModeLabel").textContent =
+          `${AUTO_ROTATION_SECONDS}s`;
+
+        autoIndex = 0;
+        currentSetor = SETORES_ORDEM[autoIndex];
+        setActiveSectorButton(currentSetor);
+        renderTV();
+
+        if (autoTimer) clearInterval(autoTimer);
+        autoTimer = setInterval(() => {
+          if (!autoMode) return;
+          autoIndex = (autoIndex + 1) % SETORES_ORDEM.length;
+          currentSetor = SETORES_ORDEM[autoIndex];
+          setActiveSectorButton(currentSetor);
+          renderTV();
+        }, AUTO_ROTATION_SECONDS * 1000);
+      }
+
+      function syncFilterUI() {
+        document.getElementById("searchInput").value = filterSearch
+          ? filterSearch
+          : "";
+        document.getElementById("roleFilter").value = filterRole
+          ? filterRole
+          : "";
+      }
+
+      function updateFilterContextOptions() {
+        // decide quais opções entram no dropdown baseado no contexto
+        if (currentView === "bday") {
+          const now = new Date();
+          const monthIndex = now.getMonth();
+          const bdaysRaw = lastColabs.filter((c) => {
+            const d = parseDateSafe(c.aniversario);
+            return d && d.getMonth() === monthIndex;
+          });
+          rebuildRoleFilterOptions(bdaysRaw);
+          return;
+        }
+
+        if (currentView === "setor" && currentSetor) {
+          const listSetorRaw = lastColabs.filter(
+            (c) => (c.setor || "").trim() === currentSetor,
+          );
+          rebuildRoleFilterOptions(listSetorRaw);
+          return;
+        }
+
+        // fallback
+        rebuildRoleFilterOptions([]);
+      }
+
+      // ========= Eventos =========
+
+      // clique setor (manual): seleciona e desliga auto; aplica filtros do contexto
+      document.querySelectorAll(".btn-sector[data-setor]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          stopAutoMode();
+
+          currentView = "setor";
+          currentSetor = btn.dataset.setor;
+
+          clearActiveButtons();
+          setActiveSectorButton(currentSetor);
+
+          // reset filtros ao trocar de setor (para não ficar preso no filtro anterior)
+          filterSearch = "";
+          filterRole = "";
+          syncFilterUI();
+
+          updateFilterContextOptions();
+          renderTV();
+        });
+      });
+
+      // toggle modo passagem
+      document.getElementById("autoModeBtn").addEventListener("click", () => {
+        // se estiver em aniversariantes, sair e ir para setor/auto
+        if (!autoMode) startAutoMode();
+        else stopAutoMode();
+      });
+
+      // aniversariantes do mês
+      document.getElementById("bdayBtn").addEventListener("click", () => {
+        stopAutoMode();
+        currentView = "bday";
+        currentSetor = null;
+
+        clearActiveButtons();
+        document.getElementById("bdayBtn").classList.add("active");
+
+        // reset filtros e opções do contexto
+        filterSearch = "";
+        filterRole = "";
+        syncFilterUI();
+        updateFilterContextOptions();
+
+        renderTV();
+      });
+
+      // filtros (nome/função)
+      document.getElementById("searchInput").addEventListener("input", (e) => {
+        filterSearch = normalizeText(e.target.value || "");
+        renderTV();
+      });
+      document.getElementById("roleFilter").addEventListener("change", (e) => {
+        filterRole = e.target.value || "";
+        renderTV();
+      });
+
+      // ========= Firestore =========
+      onSnapshot(collection(db, "colaboradores"), (snapshot) => {
+        lastColabs = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+        updateFilterContextOptions();
+        renderTV();
+      });
+
+      // ========= relógio / fullscreen =========
+      function pad2(n) {
+        return n.toString().padStart(2, "0");
+      }
+      function updateClock() {
+        const now = new Date();
+        document.getElementById("clockTime").textContent =
+          `${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())}`;
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+
+      function isFullscreen() {
+        return (
+          document.fullscreenElement ||
+          document.webkitFullscreenElement ||
+          document.mozFullScreenElement ||
+          document.msFullscreenElement
+        );
+      }
+      async function toggleFullscreen() {
+        try {
+          if (!isFullscreen()) {
+            const el = document.documentElement;
+            if (el.requestFullscreen) await el.requestFullscreen();
+            else if (el.webkitRequestFullscreen)
+              await el.webkitRequestFullscreen();
+          } else {
+            if (document.exitFullscreen) await document.exitFullscreen();
+            else if (document.webkitExitFullscreen)
+              await document.webkitExitFullscreen();
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      window.toggleFullscreen = toggleFullscreen;
+    </script>
+  </body>
+</html>
